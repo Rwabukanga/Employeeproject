@@ -1,0 +1,157 @@
+package com.EmployeeManagementSystem.employeemanagementsystem.Domain;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity
+public class Systemuser implements UserDetails {
+
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private long id;
+	private String uuid = UUID.randomUUID().toString();
+	private String name;
+	private String phonenumber;
+	private String email;
+	private String nationalid;
+	private String username;
+	private String password;
+	private String code;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date dateofbirth;
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	@Enumerated(EnumType.STRING)
+	private Position position;
+	
+	 @ManyToOne
+	 private Employee emp;
+	 
+	 
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNationalid() {
+		return nationalid;
+	}
+	public void setNationalid(String nationalid) {
+		this.nationalid = nationalid;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Date getDateofbirth() {
+		return dateofbirth;
+	}
+	public void setDateofbirth(Date dateofbirth) {
+		this.dateofbirth = dateofbirth;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	public Position getPosition() {
+		return position;
+	}
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+	public Employee getEmp() {
+		return emp;
+	}
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	
+	
+	
+	
+}

@@ -1,4 +1,5 @@
-From openjdk:8
-ADD target/employeemanagementsystem.jar employeemanagementsystem.jar
+From openjdk:17
+VOLUME /tmp
 EXPOSE 3002
-ENTRYPOINT ["java", "-jar", "/employeemanagementsystem.jar"]
+COPY target/employeemanagementsystem.jar employee.jar
+ENTRYPOINT ["java", "-jar", "/employee.jar"]

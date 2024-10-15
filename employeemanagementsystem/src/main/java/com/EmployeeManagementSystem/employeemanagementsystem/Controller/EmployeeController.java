@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +24,8 @@ import com.EmployeeManagementSystem.employeemanagementsystem.Domain.Employee;
 import com.EmployeeManagementSystem.employeemanagementsystem.Domain.Position;
 import com.EmployeeManagementSystem.employeemanagementsystem.Domain.Status;
 import com.EmployeeManagementSystem.employeemanagementsystem.Domain.Systemuser;
+import com.EmployeeManagementSystem.employeemanagementsystem.Exception.EmailException;
+import com.EmployeeManagementSystem.employeemanagementsystem.Exception.NameException;
 import com.EmployeeManagementSystem.employeemanagementsystem.Service.EmployeeService;
 import com.EmployeeManagementSystem.employeemanagementsystem.Service.SystemuserService;
 import com.EmployeeManagementSystem.employeemanagementsystem.Utility.Msg;
@@ -43,9 +43,9 @@ public class EmployeeController {
 	@Autowired
 	private SystemuserService userservice;
 	
-	@Autowired
-	private JavaMailSender MailSender;
-	
+//	@Autowired
+//	private JavaMailSender MailSender;
+//	
 	
 	@CrossOrigin
 	@RequestMapping(value="/saveemployee", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE )
@@ -53,12 +53,29 @@ public class EmployeeController {
 		
 		ResponseBean rb = new ResponseBean();
 		
-		try {
+//		try {
 			Employee em = new Employee();
 			
 			
-				em.setName(employee.getName());
-				em.setEmail(employee.getEmail());
+			
+			    if(employee.getName().isEmpty()) {
+			    	throw new NameException("Complete Names");
+			    }else {
+			    	em.setName(employee.getName());
+			    }
+			    
+			    if(employee.getEmail().isEmpty()) {
+			    	throw new EmailException("Invalid Email");
+			    }else {
+			    	em.setEmail(employee.getEmail());
+			    }
+				
+			    if(employee.getPhonenumber().isEmpty()) {
+			    	throw new EmailException("Invalid Phone Numbers");
+			    }else {
+			    	em.setPhonenumber(employee.getPhonenumber());
+			    }
+				
 				em.setPhonenumber(employee.getPhonenumber());
 				em.setStatus(Status.Active);
 				em.setDateofbirth(employee.getDateofbirth());
@@ -90,21 +107,21 @@ public class EmployeeController {
 				rb.setDescription(Msg.save);
 				rb.setObject(user);
 			
-			  SimpleMailMessage message = new SimpleMailMessage();
-			  message.setFrom("sethfils2016@gmail.com"); 
-			  message.setTo(user.getEmail());
-			  message.setSubject("this is your username and Password");
-			  message.setText(user.getPassword()); 
-			  
-			  MailSender.send(message);
+//				SimpleMailMessage message = new SimpleMailMessage();
+//			  message.setFrom("sethfils2016@gmail.com"); 
+//			  message.setTo(user.getEmail());
+//			  message.setSubject("this is your username and Password");
+//			  message.setText(user.getPassword()); 
+//			  
+//			  MailSender.send(message);
 			  
 			
 			
-		}catch(Exception ex) {
-			ex.printStackTrace();
-			rb.setCode(Msg.ERROR_CODE);
-			rb.setDescription("fail to save");
-		}
+//		}catch(Exception ex) {
+//			ex.printStackTrace();
+//			rb.setCode(Msg.ERROR_CODE);
+//			rb.setDescription("fail to save");
+//		}
 		
 		return new ResponseEntity<Object>(rb, HttpStatus.OK);
 		
@@ -117,7 +134,7 @@ public class EmployeeController {
 		
 		ResponseBean rb = new ResponseBean();
 		
-		try {
+//		try {
 			Employee em = new Employee();
 			
 			
@@ -136,36 +153,36 @@ public class EmployeeController {
 				rb.setDescription(Msg.save);
 				rb.setObject(em);	
 				
-				Systemuser user = new Systemuser();
-				user.setName(em.getName());
-				user.setEmail(em.getEmail());
-				user.setPhonenumber(em.getPhonenumber());
-				user.setStatus(Status.Active);
-				user.setDateofbirth(em.getDateofbirth());
-				user.setPosition(Position.Manager);
-				user.setUsername(em.getUsername());
-				user.setPassword(em.getPassword());
-				user.setNationalid(em.getNationalid());
-				user.setNationalid(em.getNationalid());
-				user.setEmp(em);
-				userservice.create(user);
-				rb.setCode(Msg.SUCCESS_CODE);
-				rb.setDescription(Msg.save);
-				rb.setObject(user);
-			
-			  SimpleMailMessage message = new SimpleMailMessage();
-			  message.setFrom("sethfils2016@gmail.com"); message.setTo(user.getEmail());
-			  message.setSubject("this is your username and Password");
-			  message.setText(user.getPassword()); 
-			  MailSender.send(message);
+//				Systemuser user = new Systemuser();
+//				user.setName(em.getName());
+//				user.setEmail(em.getEmail());
+//				user.setPhonenumber(em.getPhonenumber());
+//				user.setStatus(Status.Active);
+//				user.setDateofbirth(em.getDateofbirth());
+//				user.setPosition(Position.Manager);
+//				user.setUsername(em.getUsername());
+//				user.setPassword(em.getPassword());
+//				user.setNationalid(em.getNationalid());
+//				user.setNationalid(em.getNationalid());
+//				user.setEmp(em);
+//				userservice.create(user);
+//				rb.setCode(Msg.SUCCESS_CODE);
+//				rb.setDescription(Msg.save);
+//				rb.setObject(user);
+//			
+//			  SimpleMailMessage message = new SimpleMailMessage();
+//			  message.setFrom("sethfils2016@gmail.com"); message.setTo(user.getEmail());
+//			  message.setSubject("this is your username and Password");
+//			  message.setText(user.getPassword()); 
+//			  MailSender.send(message);
 			 
 			
 			
-		}catch(Exception ex) {
-			ex.printStackTrace();
-			rb.setCode(Msg.ERROR_CODE);
-			rb.setDescription("fail to save");
-		}
+//		}catch(Exception ex) {
+//			ex.printStackTrace();
+//			rb.setCode(Msg.ERROR_CODE);
+//			rb.setDescription("fail to save");
+//		}
 		
 		return new ResponseEntity<Object>(rb, HttpStatus.OK);
 		
@@ -207,7 +224,7 @@ public class EmployeeController {
 			em.setPhonenumber(employee.getPhonenumber());
 			em.setStatus(employee.getStatus());
 			em.setDateofbirth(employee.getDateofbirth());
-			em.setPosition(Position.Manager);
+			//em.setPosition(Position.Manager);
 			
 			
 			

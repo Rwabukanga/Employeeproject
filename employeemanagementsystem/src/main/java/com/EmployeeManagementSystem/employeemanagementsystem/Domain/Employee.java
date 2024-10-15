@@ -132,6 +132,13 @@ public class Employee {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", uuid=" + uuid + ", name=" + name + ", phonenumber=" + phonenumber + ", email="
+				+ email + ", nationalid=" + nationalid + ", username=" + username + ", password=" + password + ", code="
+				+ code + ", dateofbirth=" + dateofbirth + ", status=" + status + ", position=" + position + "]";
+	}
 	
 	
 	

@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  psql-db:
+    image: postgres
+    container_name: new-psql-db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=jado
+      - POSTGRES_DB=crbb
+    ports:
+      - '5436:5432'
+
+  employee:
+    container_name: employeemanagementsystem
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3003:3002'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/crbb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=jado
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - psql-db
+      
+    restart: always

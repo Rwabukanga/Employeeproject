@@ -43,8 +43,8 @@ public class SystemuserController {
 
 		try {
 			
-			 final String hashedPassword = BCrypt.hashpw(user.getPassword(),
-			 BCrypt.gensalt()); user.setPassword(hashedPassword);
+//			 final String hashedPassword = BCrypt.hashpw(user.getPassword(),
+//			 BCrypt.gensalt()); user.setPassword(hashedPassword);
 			 
 			sysservice.create(user);
 			rb.setCode(Msg.SUCCESS_CODE);
@@ -74,8 +74,8 @@ public class SystemuserController {
 				Map<String, Object> map = new HashMap<String, Object>();
 
 				
-				  final String hashedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
-				 
+//				  final String hashedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
+//				 
 
 				
 				 /* if((sysservice.findByUsernameAndPassword(user.getUsername(),
@@ -125,10 +125,10 @@ public class SystemuserController {
 
 				
 				
-				  final String hashedPassword =
-				  BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
-				 
-				 user.setPassword(hashedPassword); 
+//				  final String hashedPassword =
+////				  BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
+//				 
+//				 user.setPassword(hashedPassword); 
 				if (sysservice.update(sys).equalsIgnoreCase(Msg.update)) {
 					rs.setCode(Msg.SUCCESS_CODE);
 					rs.setDescription("Password successfully changed");
